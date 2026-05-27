@@ -1,3 +1,9 @@
+## Run RabbitMQ
+
+```bash
+docker-compose up -d
+```
+
 ## Structure Overview
 
 - Order Service
