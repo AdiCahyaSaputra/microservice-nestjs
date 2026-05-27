@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { OrderController } from './order.controller';
-import { PrismaService } from '../prisma/prisma.service';
+import { PrismaModule } from '../prisma/prisma.module';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 
 @Module({
   imports: [
+    PrismaModule,
     ClientsModule.register([
       {
         name: 'KITCHEN_SERVICE',
@@ -21,6 +22,6 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
     ]),
   ],
   controllers: [OrderController],
-  providers: [OrderService, PrismaService],
+  providers: [OrderService],
 })
 export class OrderModule {}

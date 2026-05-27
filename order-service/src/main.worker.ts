@@ -1,16 +1,15 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-import { ValidationPipe } from '@nestjs/common';
+import { AppWorkerModule } from './app.worker.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 
 async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
-    AppModule,
+    AppWorkerModule,
     {
       transport: Transport.RMQ,
       options: {
         urls: [process.env.RABBITMQ_URL as string],
-        queue: 'kitchen_queue',
+        queue: 'order_queue',
         queueOptions: {
           durable: process.env.NODE_ENV === 'production',
         },
@@ -18,14 +17,8 @@ async function bootstrap() {
     },
   );
 
-  app.useGlobalPipes(
-    new ValidationPipe({
-      transform: true,
-    }),
-  );
-
   await app.listen();
 
-  console.log(`🍳 Kitchen service is listening on queue`);
+  console.log('🛒 Order worker is listening on order_queue');
 }
 void bootstrap();

@@ -19,6 +19,8 @@ export class OrderService {
 
     this.kitchenService.emit(EVENT_CONSTANT.KITCHEN_ORDER_CREATED, order);
 
+    console.log('Order: Order created', order.id);
+
     return ResponseHelper.success({ data: order });
   }
 }
