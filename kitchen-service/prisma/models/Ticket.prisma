@@ -1,0 +1,16 @@
+model Ticket {
+  id           String       @id @default(uuid())
+  orderId      String
+  customerName String       @db.VarChar(100)
+  item         String       @db.VarChar(200)
+  status       TicketStatus @default(RECEIVED)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum TicketStatus {
+  RECEIVED
+  PREPARING
+  COMPLETED
+}

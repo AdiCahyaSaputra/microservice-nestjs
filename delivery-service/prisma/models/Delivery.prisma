@@ -1,0 +1,17 @@
+model Dispatch {
+  id           String         @id @default(uuid())
+  orderId      String
+  customerName String         @db.VarChar(100)
+  item         String         @db.VarChar(200)
+  status       DispatchStatus @default(DISPATCHED)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum DispatchStatus {
+  DISPATCHED
+  IN_TRANSIT
+  DELIVERED
+  CANCELLED
+}
